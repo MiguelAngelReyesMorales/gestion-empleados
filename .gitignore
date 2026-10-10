@@ -1,0 +1,21 @@
+
+# Dependencias de Node.js y Angular
+node_modules/
+frontend/node_modules/
+
+# Archivos generados por Angular
+frontend/dist/
+frontend/.angular/
+
+# Archivos de entorno y credenciales
+.env
+.env.*
+
+# Archivos de registro
+*.log
+npm-debug.log*
+
+# Archivos del sistema y del editor
+.DS_Store
+Thumbs.db
+.vscode/

@@ -1,0 +1,119 @@
+<header class="encabezado">
+  <h1>GESTIÓN DE EMPLEADOS</h1>
+  <p>Administración de información del personal</p>
+</header>
+
+<main class="contenedor">
+  <section class="tarjeta">
+    <h2>{{ empleadoSeleccionado ? 'Editar empleado' : 'Registrar empleado' }}</h2>
+
+    <form #formEmpleado="ngForm" (ngSubmit)="guardarEmpleado(formEmpleado)">
+      <label for="name">Nombre completo</label>
+      <input
+        id="name"
+        name="name"
+        type="text"
+        placeholder="Ingrese el nombre"
+        [(ngModel)]="empleado.name"
+        required
+      />
+
+      <label for="position">Cargo</label>
+      <input
+        id="position"
+        name="position"
+        type="text"
+        placeholder="Ingrese el cargo"
+        [(ngModel)]="empleado.position"
+        required
+      />
+
+      <label for="office">Oficina</label>
+      <input
+        id="office"
+        name="office"
+        type="text"
+        placeholder="Ingrese la oficina"
+        [(ngModel)]="empleado.office"
+        required
+      />
+
+      <label for="salary">Salario</label>
+      <input
+        id="salary"
+        name="salary"
+        type="number"
+        placeholder="Ingrese el salario"
+        [(ngModel)]="empleado.salary"
+        min="1"
+        required
+      />
+
+      <div class="acciones">
+        <button
+          type="button"
+          class="btn-secundario"
+          (click)="limpiarFormulario(formEmpleado)"
+        >
+          Limpiar
+        </button>
+
+        <button type="submit" class="btn-principal">
+          {{ empleadoSeleccionado ? 'Actualizar' : 'Guardar' }}
+        </button>
+      </div>
+    </form>
+
+    <p class="mensaje" *ngIf="mensaje">{{ mensaje }}</p>
+    <p class="error" *ngIf="error">{{ error }}</p>
+  </section>
+
+  <section class="tarjeta">
+    <h2>Lista de empleados</h2>
+    
+
+    <p class="mensaje" *ngIf="empleados.length === 0 && !error">
+      No hay empleados registrados.
+    </p>
+
+    <div class="tabla-contenedor" *ngIf="empleados.length > 0">
+      <table>
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Cargo</th>
+            <th>Oficina</th>
+            <th>Salario</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let item of empleados">
+            <td>{{ item.name }}</td>
+            <td>{{ item.position }}</td>
+            <td>{{ item.office }}</td>
+            <td>{{ item.salary | number }}</td>
+            <td class="acciones-tabla">
+              <button
+                type="button"
+                class="btn-secundario"
+                (click)="editarEmpleado(item)"
+              >
+                Editar
+              </button>
+
+              <button
+                type="button"
+                class="btn-eliminar"
+                (click)="eliminarEmpleado(item._id)"
+              >
+                Eliminar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</main>
